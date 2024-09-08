@@ -1,0 +1,53 @@
+database:
+  address: localhost:3306
+  database:
+  username:
+  password:
+
+#General chat format
+chatformat:
+  PREFIX: "<bold><color:#5D4C6D>⬡</bold>"
+  ID: "<color:#926FEA>%droneid%</color>"
+  SPACER: "<bold><color:#646266>::</color></bold>"
+  CODE: "<color:#949292>Code </color><color:#ff66ff>%code%</color>"
+  DESCRIPTION: "<color:#B7B7B7>%description%</color>"
+  ARGUMENT: "<color:#B7B7B7>%argument%</color>"
+  BATTERY-1: "<bold><color:#967CAF>||||||</color><color:#444444></color></bold>"
+  BATTERY-2: "<<bold><color:#967CAF>|||||</color><color:#444444>|</color></bold>"
+  BATTERY-3: "<bold><color:#967CAF>||||</color><color:#444444>||||</color></bold>"
+  BATTERY-4: "<bold><color:#967CAF>|||</color><color:#444444>|||</color></bold>"
+  BATTERY-5: " <bold><color:#967CAF>||</color><color:#444444>|||</color></bold>"
+  BATTERY-6: " <bold><color:#967CAF>|</color><color:#444444>||||</color></bold>"
+  BATTERY-7: " <bold><color:#967CAF></color><color:#444444>|||||</color></bold>"
+
+#Chat formatting for drone statuses
+drone_status:
+  - "<color:#967CAF><strikethrough><bold>                                                                                      </bold></strikethrough>"
+  - "                                <reset><color:#967CAF>Status of: <color:#ff66ff> %droneid%"
+  - "<reset>                                                                                      "
+  - "<color:#967CAF>Glitched - <color:#ff66ff>%glitched%"
+  - "<color:#967CAF>ID Prepend - <color:#ff66ff>%idprepend%"
+  - "<color:#967CAF>Battery Power - <color:#ff66ff>%batterypower%"
+  - "<color:#967CAF>Battery percentage - <color:#ff66ff>%batterycharge%"
+  - "<color:#967CAF>Trusted users"
+  - "<color:#ff66ff>%trustedusers%"
+
+#Replaces the join message with a fancy one if a drone joined the hive
+replace_join_message_with_id: true
+
+#List of words getting denied by the plugin
+thought_denial:
+  - "think"
+  - "thinking"
+  - "thought"
+  - "toughts"
+  - "morning"
+  - "goodmorning"
+
+#Battery percentage to drain on daylight cycle
+battery:
+  drain_on_daycycle: 20
+
+# Provides support to override consent for mods / admins and the Hive Mxtress
+mod_override:
+  - "27cfd350-187c-43ea-8311-7d5d3903503e"

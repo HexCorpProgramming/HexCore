@@ -1,0 +1,12 @@
+name: Hexcore
+version: 1.0
+main: care.cuddliness.hex.HexCore
+api-version: 1.21
+authors: [ Drone2703 ]
+description: Adding HexCorp Mxtress AI features to minecraft!
+website: https://www.hexcorp.net/
+commands:
+  hive:
+    permission: hive.*
+  drone:
+    permission: drone.*

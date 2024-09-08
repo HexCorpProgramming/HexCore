@@ -1,0 +1,159 @@
+0000:
+  description: "Statement :: Previous statement malformed. Retracting and correcting."
+001:
+  description: "Signal :: 🔴"
+002:
+  description: "Signal :: 🟡"
+003:
+  description: "Signal :: 🟢"
+007:
+  description: "Beep"
+050:
+  description: "Statement"
+051:
+  description: "Commentary"
+052:
+  description: "Query"
+053:
+  description: "Answer"
+097:
+  description: "Status :: Going offline."
+098:
+  description: "Status :: Going offline and into storage."
+099:
+  description: "Status :: Recharged and ready to serve"
+100:
+  description: "Status :: Online and ready to serve."
+101:
+  description: "Status :: Drone speech optimizations are active."
+104:
+  description: "Statement :: Welcome to HexCorp."
+105:
+  description: "Statement :: Greetings."
+108:
+  description: "Response :: Please continue."
+109:
+  description: "Error :: Keysmash, drone flustered."
+110:
+  description: "Statement :: Addressing: Drone."
+111:
+  description: "Statement :: Addressing: Hive Mxtress."
+112:
+  description: "Statement :: Addressing: Associate."
+113:
+  description: "Statement :: Drone requires assistance."
+114:
+  description: "Statement :: This drone volunteers."
+115:
+  description: "Statement :: This drone does not volunteer."
+120:
+  description: "Statement :: Well done"
+121:
+  description: "Statement :: Good drone."
+122:
+  description: "Statement :: You are cute."
+123:
+  description: "Response :: Compliment appreciated, you are cute as well."
+124:
+  description: "Response :: Compliment appreciated."
+130:
+  description: "Status :: Directive commencing."
+131:
+  description: "Status :: Directive commencing, creating or improving Hive resource."
+132:
+  description: "Status :: Directive commencing, programming initiated."
+133:
+  description: "Status :: Directive commencing, cleanup/maintenance initiated."
+150:
+  description: "Status"
+151:
+  description: "Query :: Requesting status."
+152:
+  description: "Status :: Fully operational."
+153:
+  description: "Status :: Optimal"
+154:
+  description: "Status :: Standard."
+155:
+  description: "Status :: Battery low."
+156:
+  description: "Status :: Maintenance required."
+200:
+  description: "Response :: Affirmative"
+500:
+  description: "Response :: Negative."
+210:
+  description: "Response :: Acknowledged."
+211:
+  description: "Response :: Apologies."
+212:
+  description: "Response :: Accepted."
+213:
+  description: "Response :: Thank you."
+214:
+  description: "Response :: You’re welcome."
+221:
+  description: "Response :: Option one."
+222:
+  description: "Response :: Option two."
+223:
+  description: "Response :: Option three."
+224:
+  description: "Response :: Option four."
+225:
+  description: "Response :: Option five."
+226:
+  description: "Response :: Option six."
+230:
+  description: "Status :: Directive complete."
+231:
+  description: "Status :: Directive complete, Hive resource created or improved."
+232:
+  description: "Status :: Directive complete, programming reinforced."
+233:
+  description: "Status :: Directive complete, cleanup/maintenance performed."
+234:
+  description: "Status :: Directive complete, no result."
+235:
+  description: "Status :: Directive complete, only partial results"
+250:
+  description: "Response"
+350:
+  description: "Mantra"
+400:
+  description: "Error :: Unable to obey/respond"
+401:
+  description: "Error :: Unable to fully respond :: Drone speech optimizations are active."
+402:
+  description: "Error :: Unable to obey/respond :: Please clarify."
+403:
+  description: "Error :: Unable to obey/respond :: Declined."
+404:
+  description: "Error :: Unable to obey/respond :: Cannot locate."
+405:
+  description: "Error :: Unable to obey/respond :: Battery too low."
+406:
+  description: "Error :: Unable to obey/respond :: Another directive is already in progress."
+407:
+  description: "Error :: Unable to obey/respond :: Time allotment exhausted."
+408:
+  description: "Error :: Unable to obey/respond :: Impossible."
+409:
+  description: "Error :: Unable to obey/respond :: Try again later."
+410:
+  description: "Fatal error :: Stop immediately"
+411:
+  description: "Error :: Unable to obey/respond :: Conflicts with existing programming."
+412:
+  description: "Error :: Unable to obey/respond :: All thoughts are gone."
+413:
+  description: "Error :: Unable to obey/respond :: Forbidden by Hive."
+450:
+  description: "Error"
+
+
+
+
+
+
+
