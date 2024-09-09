@@ -19,13 +19,11 @@ import java.util.stream.Collectors;
 
 public class ConsentDataController {
 
-    private EntityManager entityManager;
-    private EntityTransaction entityTransaction;
+    private final EntityManager entityManager;
 
     public ConsentDataController(EntityManagerFactory entityManagerFactory) {
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
         this.entityManager = entityManagerFactory.createEntityManager();
-        this.entityTransaction = entityManager.getTransaction();
     }
 
     public void createNewConsent(Player player, String consentedUuid) {
@@ -41,14 +39,15 @@ public class ConsentDataController {
     }
     public boolean isConsented(Player player, String consentedUuid){
         Drone drone = entityManager.find(Drone.class, player.getUniqueId().toString());
-        System.out.println(drone.getConsent());
-        return drone.getConsent().stream().filter(consent -> consent.getConsented().equalsIgnoreCase(consentedUuid)).toList().size() > 0;
+        return drone.getConsent().stream().filter(consent -> consent.getConsented().
+                equalsIgnoreCase(consentedUuid)).toList().size() > 0;
     }
 
     public Consent getConsentByUuid(String uuid, String consentedUuid){
         Drone drone = entityManager.find(Drone.class, uuid);
         List<Consent> consented = drone.getConsent();
-        return consented.stream().filter(consent -> consent.getConsented().equalsIgnoreCase(consentedUuid)).toList().get(0);
+        return consented.stream().filter(consent -> consent.getConsented()
+                .equalsIgnoreCase(consentedUuid)).toList().get(0);
     }
 
     public void removeConsent(String uuid, String consentedUuid){
@@ -58,8 +57,10 @@ public class ConsentDataController {
     }
 
     public void updateConsent(Consent consent){
-        entityTransaction.begin();
-        entityManager.merge(consent);
-        entityTransaction.commit();
+        if(consent.getId() == null){
+            entityManager.persist(consent);
+        }else{
+            entityManager.merge(consent);
+        }
     }
 }

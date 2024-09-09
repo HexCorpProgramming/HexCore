@@ -13,7 +13,6 @@ public class PlayerLeaveBedListener implements Listener {
     @EventHandler
     public void onBedLeave(PlayerBedLeaveEvent event){
         Drone drone = HexCore.getHexCore().getDroneDataController().getDrone(event.getPlayer().getUniqueId().toString());
-        event.getPlayer().sendMessage(event.getPlayer().getWorld().getTime() + "");
         if(drone != null && drone.isBatteryStatus() && event.getPlayer().getWorld().getTime() >= 0){
             MessageUtil.sendMessage(MessageValue.BATTERY_CHARGED.getMessage(), event.getPlayer());
             drone.getDroneSettings().setBatteryCapacity(100);

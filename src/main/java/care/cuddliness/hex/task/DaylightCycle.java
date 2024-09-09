@@ -12,16 +12,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class DaylightCycle extends BukkitRunnable {
 
-    private World world;
-    private int drainage;
-    private DroneDataController droneDataController;
+    private final World world;
+    private final int drainage;
+    private final DroneDataController droneDataController;
 
     public DaylightCycle(World world) {
         this.world = world;
         this.drainage = HexCore.getHexCore().getMainConfigYml().getInt("battery.drain_on_daycycle");
         this.droneDataController = HexCore.getHexCore().getDroneDataController();
     }
-
     @Override
     public void run() {
         long Worldtime = world.getTime();

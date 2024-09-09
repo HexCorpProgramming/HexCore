@@ -30,7 +30,7 @@ public class PlayerChatListener implements Listener {
                 if (isInteger(args[1])) {
                     //Return if said Id is not owned by the drone
                     if (drone.getDroneId() != Integer.parseInt(args[0].replace(" ", ""))) {
-                        //TODO::Send message to drone to inform it's not it's ID
+                       MessageUtil.sendMessage(MessageValue.COMMAND_HIVE_CODE_VALIDATION.getMessage(), e.getPlayer());
                         return;
                     }
                     //Check the argument is an integer to detect if its an StatusCode ID

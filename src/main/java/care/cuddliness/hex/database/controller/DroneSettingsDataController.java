@@ -11,12 +11,10 @@ import java.util.Map;
 
 public class DroneSettingsDataController {
 
-    private EntityManager entityManager;
-    private EntityTransaction entityTransaction;
+    private final EntityManager entityManager;
 
     public DroneSettingsDataController(EntityManagerFactory entityManagerFactory) {
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
         this.entityManager = entityManagerFactory.createEntityManager();
-        this.entityTransaction = entityManager.getTransaction();
     }
 }

@@ -8,10 +8,8 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.hibernate.stat.Statistics;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.UUID;
 
 @CommandAlias("hive|h")
@@ -61,7 +59,8 @@ public class HiveCommand extends BaseCommand {
                 if (!drone.isActive()) {
                     drone.setActive(true);
                     core.getDroneDataController().updateDrone(drone);
-                    MessageUtil.sendMessage(MessageValue.COMMAND_HIVE_WELCOME_BACK.getMessage().replace("%droneId%", drone.getId()), player);
+                    MessageUtil.sendMessage(MessageValue.COMMAND_HIVE_WELCOME_BACK.getMessage().replace("%droneId%",
+                            drone.getId()), player);
                     return;
                 } else {
                     MessageUtil.sendMessage(MessageValue.COMMAND_HIVE_ALREADY_DRONE.getMessage(), player);

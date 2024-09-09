@@ -4,8 +4,6 @@ import care.cuddliness.hex.HexCore;
 import care.cuddliness.hex.database.controller.DroneDataController;
 import care.cuddliness.hex.message.ChatFormat;
 import care.cuddliness.hex.message.MessageUtil;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -23,7 +21,8 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
-        if(controller.getDrone(e.getPlayer().getUniqueId().toString()) != null){
+        if(controller.getDrone(e.getPlayer().getUniqueId().toString()) != null &&
+                controller.getDrone(e.getPlayer().getUniqueId().toString()).isActive()){
             if(HexCore.getHexCore().getMainConfigYml().getBoolean("replace_join_message_with_id")) {
                 e.setJoinMessage("");
                 MessageUtil.broadcast(ChatFormat.PREFIX.getMessage() + " " + ChatFormat.ID.getMessage().replace("%droneid%",
@@ -36,7 +35,6 @@ public class PlayerJoinListener implements Listener {
             team.setPrefix(ChatColor.translateAlternateColorCodes('&', "&8&l⬡ &5" + controller.getDrone(e.getPlayer().getUniqueId().toString())
                     .getDroneId() + " &7| &r"));
             team.addEntry(e.getPlayer().getName());
-
         }
     }
 

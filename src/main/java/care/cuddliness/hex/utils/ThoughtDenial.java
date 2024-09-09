@@ -5,11 +5,9 @@ import care.cuddliness.hex.HexCore;
 import java.util.List;
 
 public class ThoughtDenial {
-    private HexCore hexCore;
-    private List<String> deniedWords;
+    private final List<String> deniedWords;
 
     public ThoughtDenial (HexCore hexCore){
-        this.hexCore = hexCore;
         this.deniedWords = hexCore.getConfig().getStringList("thought_denial");
     }
 

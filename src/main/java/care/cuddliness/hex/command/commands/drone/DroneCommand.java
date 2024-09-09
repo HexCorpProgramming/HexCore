@@ -5,10 +5,8 @@ import care.cuddliness.hex.database.model.Drone;
 import care.cuddliness.hex.message.MessageUtil;
 import care.cuddliness.hex.message.MessageValue;
 import co.aikar.commands.BaseCommand;
-import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -32,7 +30,37 @@ public class DroneCommand extends BaseCommand {
                 Drone drone = core.getDroneDataController().getDrone(player.getUniqueId().toString());
                 sendStatus(drone, player);
             }
+        } else if (args.length == 1) {
+            Drone drone = null;
+            //Check if target is an integer / id
+            if (args[0].length() == 4 && isInteger(args[0]))
+                drone = core.getDroneDataController().getDroneById(Integer.parseInt(args[0]));
+            //Check if target is a user or not
+            if (Bukkit.getPlayer(args[0]) != null)
+                drone = core.getDroneDataController().getDrone(Bukkit.getPlayer(args[0]).getUniqueId().toString());
 
+            //Check if drone is not null, else this target doesn't exist
+            if (drone != null) {
+                if(!drone.isActive()){
+                    MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage(), player);
+                    return;
+                }
+                //Check if sender is drone itself
+                if (drone.getId().equalsIgnoreCase(player.getUniqueId().toString())) {
+                    sendStatus(drone, player);
+                    return;
+                }
+                //Check if user is consented over drone
+                if (!core.getConsentDataController().isConsented(Objects.requireNonNull(Bukkit.getPlayer(drone.getId())),
+                        player.getUniqueId().toString()) || !isInOvveride(player)) {
+                    MessageUtil.sendMessage(MessageValue.PLAYER_NOT_CONSENTED.getMessage(), player);
+                } else {
+                    sendStatus(drone, player);
+                }
+            } else {
+                MessageUtil.sendMessage(MessageValue.DRONE_NOT_REGISTERED_IN_HIVE.getMessage(), player);
+
+            }
         }
     }
 
@@ -184,7 +212,6 @@ public class DroneCommand extends BaseCommand {
                 drone = core.getDroneDataController().getDrone(Bukkit.getPlayer(args[0]).getUniqueId().toString());
             //Check if drone is not null, else this target doesn't exist
             if (drone != null) {
-                //Check if sender is drone itself
                 //Check if drone is deactivated
                 if(!drone.isActive()){
                     MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage(), player);
@@ -203,7 +230,6 @@ public class DroneCommand extends BaseCommand {
                 }
             } else {
                 MessageUtil.sendMessage(MessageValue.DRONE_NOT_REGISTERED_IN_HIVE.getMessage(), player);
-
             }
         }
     }
@@ -225,7 +251,8 @@ public class DroneCommand extends BaseCommand {
                 Drone drone = core.getDroneDataController().getDrone(player.getUniqueId().toString());
                 if(drone.isActive()) {
                     core.getDroneDataController().emergencyRelease(drone);
-                    MessageUtil.sendMessage(MessageValue.EMERGENCY_RELEASE_CONSENTED.getMessage().replace("%droneid%", drone.getId()), player);
+                    MessageUtil.sendMessage(MessageValue.EMERGENCY_RELEASE_CONSENTED.getMessage().replace("%droneid%",
+                            drone.getId()), player);
                 }else{
                     MessageUtil.sendMessage(MessageValue.DRONE_ALREADY_DEACTIVATED.getMessage(), player);
                 }
@@ -258,7 +285,8 @@ public class DroneCommand extends BaseCommand {
                 } else {
                     if(drone.isActive()) {
                         core.getDroneDataController().emergencyRelease(drone);
-                        MessageUtil.sendMessage(MessageValue.EMERGENCY_RELEASE_CONSENTED.getMessage().replace("%droneid%", drone.getId()), player);
+                        MessageUtil.sendMessage(MessageValue.EMERGENCY_RELEASE_CONSENTED.getMessage()
+                                .replace("%droneid%", drone.getId()), player);
                         Player p = Bukkit.getPlayer(drone.getId());
                         //Check if player is online
                         if(p == null){
@@ -353,7 +381,7 @@ public class DroneCommand extends BaseCommand {
     //Check if an input is a valid int
     private static boolean isInteger(String input) {
         try {
-            int num = Integer.parseInt(input);
+            Integer.parseInt(input);
             return true;
         } catch (NumberFormatException e) {
             return false;

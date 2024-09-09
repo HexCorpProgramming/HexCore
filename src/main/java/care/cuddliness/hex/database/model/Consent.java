@@ -24,8 +24,7 @@ public class Consent {
         this.droneId = drone;
     }
 
-    public Consent() {
-    }
+    public Consent() {}
 
     public Consent(UUID id, String consented) {
         this.id = id;

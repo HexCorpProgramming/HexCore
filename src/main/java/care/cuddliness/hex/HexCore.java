@@ -31,10 +31,9 @@ import java.util.HashMap;
 import java.util.logging.Level;
 
 public class HexCore extends JavaPlugin {
-    @Getter private YamlDocument messageYaml;
-    @Getter private YamlDocument mainConfigYml;
-
-    private EntityManagerFactory entityManager;
+    private @Getter YamlDocument messageYaml;
+    private @Getter YamlDocument mainConfigYml;
+    private @Getter EntityManagerFactory entityManager;
     private @Getter DroneDataController droneDataController;
     private @Getter DroneSettingsDataController droneSettingsDataController;
     private @Getter ConsentDataController consentDataController;
@@ -43,11 +42,24 @@ public class HexCore extends JavaPlugin {
     private @Getter ThoughtDenial thoughtDenial;
     private BukkitAudiences miniMessage;
     @Getter private static HexCore hexCore;
+
     @Override
     public void onEnable() {
         hexCore = this;
+        System.setProperty("log4j.configuration", "resources/log4j.properties");
+        //Config stuff
+        try {
+            this.messageYaml = YamlDocument.create(new File(getDataFolder(), "messages.yml"), getResource("messages.yml"));
+            this.mainConfigYml = YamlDocument.create(new File(getDataFolder(), "config.yml"), getResource("config.yml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //Registering database controllers
+        this.entityManager = new HibernatePersistenceProvider().createContainerEntityManagerFactory(new DronePersistenceUnit(), new HashMap());
+        this.droneDataController = new DroneDataController(entityManager);
+        this.droneSettingsDataController = new DroneSettingsDataController(entityManager);
+        this.consentDataController = new ConsentDataController(entityManager);
 
-        System.setProperty("log4j.configuration", "resources/log4jConfig.xml");
         //Register Command stuff
         this.commandManager = new PaperCommandManager(this);
         this.commandManager.registerCommand(new HiveCommand(this));
@@ -56,22 +68,8 @@ public class HexCore extends JavaPlugin {
         //Adding instance for minimessages aka fancy colors
         this.miniMessage = BukkitAudiences.create(this);
 
-        //Config stuff
-        try {
-            this.messageYaml = YamlDocument.create(new File(getDataFolder(), "messages.yml"), getResource("messages.yml"));
-            this.mainConfigYml = YamlDocument.create(new File(getDataFolder(), "config.yml"), getResource("config.yml"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         //Registering Thought Denial
         this.thoughtDenial = new ThoughtDenial(this);
-
-        //Registering database controllers
-        this.entityManager = new HibernatePersistenceProvider().createContainerEntityManagerFactory(new DronePersistenceUnit(), new HashMap());
-        this.droneDataController = new DroneDataController(entityManager);
-        this.droneSettingsDataController = new DroneSettingsDataController(entityManager);
-        this.consentDataController = new ConsentDataController(entityManager);
         //Register event stuff
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this.droneDataController), this);
         getServer().getPluginManager().registerEvents(new PlayerLeaveListener(), this);
@@ -82,8 +80,6 @@ public class HexCore extends JavaPlugin {
         new DaylightCycle(Bukkit.getWorld("world")).runTaskTimerAsynchronously(this, 0, 100);
 
         Bukkit.getLogger().log(Level.INFO, "Hexcore Enabled");
-
-        //Preventing some useless console spamm
     }
 
     @Override
@@ -104,10 +100,8 @@ public class HexCore extends JavaPlugin {
         if(this.miniMessage == null) {
             throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
         }
-
         return this.miniMessage;
     }
-
 
     //2703 was here *beep*
 }
