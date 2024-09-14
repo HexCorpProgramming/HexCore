@@ -31,16 +31,16 @@ public class StatuscodeHandler {
         loadAll();
     }
 
-    private void loadAll(){
+    private void loadAll() {
         this.statusCodeFile.getKeys().forEach(o -> {
             statusCodes.put(o.toString(), statusCodeFile.getString(o + ".description"));
         });
     }
 
-    public StatusCode getStatusCode(String input){
-        if(statusCodes.get(input) == null){
+    public StatusCode getStatusCode(String input) {
+        if (statusCodes.get(input) == null) {
             return new StatusCode("999", "Code not found");
-        }else{
+        } else {
             return new StatusCode(input, statusCodes.get(input));
         }
     }

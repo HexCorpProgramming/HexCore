@@ -16,6 +16,7 @@ public enum ChatFormat {
     public String getName() {
         return name;
     }
+
     @NotNull
     public String getMessage() {
         return HexCore.getHexCore().getMainConfigYml().getString("chatformat." + getName().toUpperCase());

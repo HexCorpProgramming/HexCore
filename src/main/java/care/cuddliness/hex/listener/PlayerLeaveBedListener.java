@@ -11,9 +11,9 @@ import org.bukkit.event.player.PlayerBedLeaveEvent;
 public class PlayerLeaveBedListener implements Listener {
 
     @EventHandler
-    public void onBedLeave(PlayerBedLeaveEvent event){
+    public void onBedLeave(PlayerBedLeaveEvent event) {
         Drone drone = HexCore.getHexCore().getDroneDataController().getDrone(event.getPlayer().getUniqueId().toString());
-        if(drone != null && drone.isBatteryStatus() && event.getPlayer().getWorld().getTime() >= 0){
+        if (drone != null && drone.isBatteryStatus() && event.getPlayer().getWorld().getTime() >= 0) {
             MessageUtil.sendMessage(MessageValue.BATTERY_CHARGED.getMessage(), event.getPlayer());
             drone.getDroneSettings().setBatteryCapacity(100);
             HexCore.getHexCore().getDroneDataController().updateDrone(drone);

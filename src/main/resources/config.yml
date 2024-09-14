@@ -13,12 +13,12 @@ chatformat:
   DESCRIPTION: "<color:#B7B7B7>%description%</color>"
   ARGUMENT: "<color:#B7B7B7>%argument%</color>"
   BATTERY-1: "<bold><color:#967CAF>||||||</color><color:#444444></color></bold>"
-  BATTERY-2: "<<bold><color:#967CAF>|||||</color><color:#444444>|</color></bold>"
+  BATTERY-2: "<bold><color:#967CAF>|||||</color><color:#444444>|</color></bold>"
   BATTERY-3: "<bold><color:#967CAF>||||</color><color:#444444>||||</color></bold>"
   BATTERY-4: "<bold><color:#967CAF>|||</color><color:#444444>|||</color></bold>"
-  BATTERY-5: " <bold><color:#967CAF>||</color><color:#444444>|||</color></bold>"
-  BATTERY-6: " <bold><color:#967CAF>|</color><color:#444444>||||</color></bold>"
-  BATTERY-7: " <bold><color:#967CAF></color><color:#444444>|||||</color></bold>"
+  BATTERY-5: "<bold><color:#967CAF>||</color><color:#444444>|||</color></bold>"
+  BATTERY-6: "<bold><color:#967CAF>|</color><color:#444444>||||</color></bold>"
+  BATTERY-7: "<bold><color:#967CAF></color><color:#444444>|||||</color></bold>"
 
 #Chat formatting for drone statuses
 drone_status:
@@ -40,10 +40,8 @@ thought_denial:
   - "think"
   - "thinking"
   - "thought"
-  - "toughts"
+  - "thoughts"
   - "morning"
-  - "goodmorning"
-
 #Battery percentage to drain on daylight cycle
 battery:
   drain_on_daycycle: 20

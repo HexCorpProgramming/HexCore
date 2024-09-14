@@ -38,7 +38,7 @@ public class DronePersistenceUnit implements PersistenceUnitInfo {
         String password = HexCore.getHexCore().getMainConfigYml().getString("database.password");
 
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl("jdbc:mysql://" + address + "/" + database +  "?useSSL=false&serverTimezone=UTC");
+        dataSource.setJdbcUrl("jdbc:mysql://" + address + "/" + database + "?useSSL=false&serverTimezone=UTC");
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         return dataSource;

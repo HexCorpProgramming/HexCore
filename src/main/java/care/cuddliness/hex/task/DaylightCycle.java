@@ -21,20 +21,21 @@ public class DaylightCycle extends BukkitRunnable {
         this.drainage = HexCore.getHexCore().getMainConfigYml().getInt("battery.drain_on_daycycle");
         this.droneDataController = HexCore.getHexCore().getDroneDataController();
     }
+
     @Override
     public void run() {
         long Worldtime = world.getTime();
         //Checks if within 5 seconds the day end
         if (Worldtime > 12000 && Worldtime < 12100) {
-            for(Player player : Bukkit.getOnlinePlayers()){
+            for (Player player : Bukkit.getOnlinePlayers()) {
                 Drone drone = droneDataController.getDrone(player.getUniqueId().toString());
                 //Check if drone is on battery
-                if(drone != null && drone.isBatteryStatus()){
+                if (drone != null && drone.isBatteryStatus() && drone.isActive()) {
                     //Checks if battery will drain below zero
-                    if(Integer.signum(drone.getDroneSettings().getBatteryCapacity() - drainage) <= -1){
+                    if (Integer.signum(drone.getDroneSettings().getBatteryCapacity() - drainage) <= -1) {
                         drone.getDroneSettings().setBatteryCapacity(0);
                         droneDataController.updateDrone(drone);
-                    }else{
+                    } else {
                         drone.getDroneSettings().setBatteryCapacity(drone.getDroneSettings().getBatteryCapacity() - drainage);
                         droneDataController.updateDrone(drone);
                     }

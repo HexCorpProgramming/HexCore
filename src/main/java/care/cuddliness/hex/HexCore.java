@@ -41,7 +41,8 @@ public class HexCore extends JavaPlugin {
     private @Getter PaperCommandManager commandManager;
     private @Getter ThoughtDenial thoughtDenial;
     private BukkitAudiences miniMessage;
-    @Getter private static HexCore hexCore;
+    @Getter
+    private static HexCore hexCore;
 
     @Override
     public void onEnable() {
@@ -72,7 +73,7 @@ public class HexCore extends JavaPlugin {
         this.thoughtDenial = new ThoughtDenial(this);
         //Register event stuff
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this.droneDataController), this);
-        getServer().getPluginManager().registerEvents(new PlayerLeaveListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerLeaveListener(this.droneDataController), this);
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerLeaveBedListener(), this);
 
@@ -85,19 +86,19 @@ public class HexCore extends JavaPlugin {
     @Override
     public void onDisable() {
         Bukkit.getLogger().log(Level.INFO, "Hexcore Disabled");
-        if(this.miniMessage != null) {
+        if (this.miniMessage != null) {
             this.miniMessage.close();
             this.miniMessage = null;
         }
 
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
-        for(Team t : scoreboard.getTeams()){
+        for (Team t : scoreboard.getTeams()) {
             t.unregister();
         }
     }
 
     public @NonNull BukkitAudiences miniMessage() {
-        if(this.miniMessage == null) {
+        if (this.miniMessage == null) {
             throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
         }
         return this.miniMessage;

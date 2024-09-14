@@ -4,10 +4,13 @@ import care.cuddliness.hex.HexCore;
 import care.cuddliness.hex.database.model.Drone;
 import care.cuddliness.hex.message.MessageUtil;
 import care.cuddliness.hex.message.MessageValue;
+import care.cuddliness.hex.utils.NameUtil;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.List;
 import java.util.Objects;
@@ -41,8 +44,12 @@ public class DroneCommand extends BaseCommand {
 
             //Check if drone is not null, else this target doesn't exist
             if (drone != null) {
-                if(!drone.isActive()){
+                if (!drone.isActive()) {
                     MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage(), player);
+                    return;
+                }
+                if (isInOvveride(player)) {
+                    sendStatus(drone, player);
                     return;
                 }
                 //Check if sender is drone itself
@@ -51,11 +58,11 @@ public class DroneCommand extends BaseCommand {
                     return;
                 }
                 //Check if user is consented over drone
-                if (!core.getConsentDataController().isConsented(Objects.requireNonNull(Bukkit.getPlayer(drone.getId())),
-                        player.getUniqueId().toString()) || !isInOvveride(player)) {
+                if (!core.getConsentDataController().isConsented(drone, player.getUniqueId().toString())) {
                     MessageUtil.sendMessage(MessageValue.PLAYER_NOT_CONSENTED.getMessage(), player);
                 } else {
                     sendStatus(drone, player);
+
                 }
             } else {
                 MessageUtil.sendMessage(MessageValue.DRONE_NOT_REGISTERED_IN_HIVE.getMessage(), player);
@@ -74,8 +81,8 @@ public class DroneCommand extends BaseCommand {
             //Check if the sender is a drone
             if (core.getDroneDataController().getDrone(player.getUniqueId().toString()) != null) {
                 Drone drone = core.getDroneDataController().getDrone(player.getUniqueId().toString());
-                if(!drone.isActive()){
-                    MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage(), player);
+                if (!drone.isActive()) {
+                    MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage().replace("%droneid%", drone.getDroneId() + ""), player);
                     return;
                 }
                 if (!drone.isBatteryStatus()) {
@@ -101,8 +108,12 @@ public class DroneCommand extends BaseCommand {
 
             //Check if drone is not null, else this target doesn't exist
             if (drone != null) {
-                if(!drone.isActive()){
-                    MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage(), player);
+                if (!drone.isActive()) {
+                    MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage().replace("%droneid%", drone.getDroneId() + ""), player);
+                    return;
+                }
+                if (isInOvveride(player)) {
+                    toggleIdPrepend(drone, player);
                     return;
                 }
                 //Check if sender is drone itself
@@ -111,8 +122,7 @@ public class DroneCommand extends BaseCommand {
                     return;
                 }
                 //Check if user is consented over drone
-                if (!core.getConsentDataController().isConsented(Objects.requireNonNull(Bukkit.getPlayer(drone.getId())),
-                        player.getUniqueId().toString()) || !isInOvveride(player)) {
+                if (!core.getConsentDataController().isConsented(drone, player.getUniqueId().toString())) {
                     MessageUtil.sendMessage(MessageValue.PLAYER_NOT_CONSENTED.getMessage(), player);
                 } else {
                     toggleBattery(drone, player);
@@ -157,8 +167,12 @@ public class DroneCommand extends BaseCommand {
             //Check if drone is not null, else this target doesn't exist
             if (drone != null) {
                 //Check if drone is deactivated
-                if(!drone.isActive()){
-                    MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage(), player);
+                if (!drone.isActive()) {
+                    MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage().replace("%droneid%", drone.getDroneId() + ""), player);
+                    return;
+                }
+                if (isInOvveride(player)) {
+                    toggleIdPrepend(drone, player);
                     return;
                 }
                 //Check if sender is drone itself
@@ -166,9 +180,9 @@ public class DroneCommand extends BaseCommand {
                     toggleIdPrepend(drone, player);
                     return;
                 }
+
                 //Check if user is consented over drone
-                if (!core.getConsentDataController().isConsented(Objects.requireNonNull(Bukkit.getPlayer(drone.getId())),
-                        player.getUniqueId().toString()) || !isInOvveride(player)) {
+                if (!core.getConsentDataController().isConsented(drone, player.getUniqueId().toString())) {
                     MessageUtil.sendMessage(MessageValue.PLAYER_NOT_CONSENTED.getMessage(), player);
                 } else {
                     toggleIdPrepend(drone, player);
@@ -213,8 +227,12 @@ public class DroneCommand extends BaseCommand {
             //Check if drone is not null, else this target doesn't exist
             if (drone != null) {
                 //Check if drone is deactivated
-                if(!drone.isActive()){
-                    MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage(), player);
+                if (!drone.isActive()) {
+                    MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage().replace("%droneid%", drone.getDroneId() + ""), player);
+                    return;
+                }
+                if (isInOvveride(player)) {
+                    toggleGlitching(drone, player);
                     return;
                 }
                 if (drone.getId().equalsIgnoreCase(player.getUniqueId().toString())) {
@@ -222,8 +240,7 @@ public class DroneCommand extends BaseCommand {
                     return;
                 }
                 //Check if user is consented over drone
-                if (!core.getConsentDataController().isConsented(Objects.requireNonNull(Bukkit.getPlayer(drone.getId())),
-                        player.getUniqueId().toString()) || !isInOvveride(player)) {
+                if (!core.getConsentDataController().isConsented(drone, player.getUniqueId().toString())) {
                     MessageUtil.sendMessage(MessageValue.PLAYER_NOT_CONSENTED.getMessage(), player);
                 } else {
                     toggleGlitching(drone, player);
@@ -239,7 +256,7 @@ public class DroneCommand extends BaseCommand {
     @Syntax("<+tag> [player]")
     @CommandCompletion("@players")
     @Description("Releases yourself from any drone related configuration")
-    public static void onRelease(Player player, String[] args){
+    public static void onRelease(Player player, String[] args) {
         if (core.getDroneDataController().getDrone(player.getUniqueId().toString()) == null) {
             MessageUtil.sendMessage(MessageValue.DRONE_NOT_REGISTERED_IN_HIVE.getMessage(), player);
             return;
@@ -249,15 +266,20 @@ public class DroneCommand extends BaseCommand {
             //Check if the sender is a drone
             if (core.getDroneDataController().getDrone(player.getUniqueId().toString()) != null) {
                 Drone drone = core.getDroneDataController().getDrone(player.getUniqueId().toString());
-                if(drone.isActive()) {
+                if (drone.isActive()) {
                     core.getDroneDataController().emergencyRelease(drone);
                     MessageUtil.sendMessage(MessageValue.EMERGENCY_RELEASE_CONSENTED.getMessage().replace("%droneid%",
                             drone.getId()), player);
-                }else{
+                    NameUtil.changePlayerName(player, player.getName());
+                    Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+                    if (scoreboard.getTeam(player.getName()) != null) {
+                        Objects.requireNonNull(scoreboard.getTeam(player.getName())).unregister();
+                    }
+                } else {
                     MessageUtil.sendMessage(MessageValue.DRONE_ALREADY_DEACTIVATED.getMessage(), player);
                 }
             }
-        }else if(args.length == 1){
+        } else if (args.length == 1) {
             Drone drone = null;
             //Check if target is an integer / id
             if (args[0].length() == 4 && isInteger(args[0]))
@@ -268,33 +290,60 @@ public class DroneCommand extends BaseCommand {
             //Check if drone is not null, else this target doesn't exist
             if (drone != null) {
                 //Check if drone is deactivated
-                if(!drone.isActive()){
-                    MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage(), player);
+                if (!drone.isActive()) {
+                    MessageUtil.sendMessage(MessageValue.DRONE_DEACTIVATED.getMessage().replace("%droneid%", drone.getDroneId() + ""), player);
+                    return;
+                }
+
+                if (isInOvveride(player)) {
+                    core.getDroneDataController().emergencyRelease(drone);
+                    MessageUtil.sendMessage(MessageValue.EMERGENCY_RELEASE_CONSENTED.getMessage()
+                            .replace("%droneid%", drone.getId()), player);
+                    NameUtil.changePlayerName(player, player.getName());
+                    Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+                    player.setDisplayName(player.getName());
+                    player.kickPlayer(ChatColor.RED + "You have been released, rejoin the server for the full effect");
+                    if (scoreboard.getTeam(player.getName()) != null) {
+                        Objects.requireNonNull(scoreboard.getTeam(player.getName())).unregister();
+                    }
                     return;
                 }
                 //Check if sender is drone itself
                 if (drone.getId().equalsIgnoreCase(player.getUniqueId().toString())) {
                     core.getDroneDataController().emergencyRelease(drone);
                     MessageUtil.sendMessage(MessageValue.EMERGENCY_RELEASE_DRONE.getMessage(), player);
+                    NameUtil.changePlayerName(player, player.getName());
+                    Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+                    if (scoreboard.getTeam(player.getName()) != null) {
+                        Objects.requireNonNull(scoreboard.getTeam(player.getName())).unregister();
+                    }
+                    player.setDisplayName(player.getName());
+                    player.kickPlayer(ChatColor.RED + "You have been released, rejoin the server for the full effect");
                     return;
                 }
                 //Check if user is consented over drone
-                if (!core.getConsentDataController().isConsented(Objects.requireNonNull(Bukkit.getPlayer(drone.getId())),
-                        player.getUniqueId().toString()) || !isInOvveride(player)) {
+                if (!core.getConsentDataController().isConsented(drone, player.getUniqueId().toString())) {
                     MessageUtil.sendMessage(MessageValue.PLAYER_NOT_CONSENTED.getMessage(), player);
                 } else {
-                    if(drone.isActive()) {
+                    if (drone.isActive()) {
                         core.getDroneDataController().emergencyRelease(drone);
                         MessageUtil.sendMessage(MessageValue.EMERGENCY_RELEASE_CONSENTED.getMessage()
                                 .replace("%droneid%", drone.getId()), player);
                         Player p = Bukkit.getPlayer(drone.getId());
+                        NameUtil.changePlayerName(player, player.getName());
+                        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+                        if (scoreboard.getTeam(player.getName()) != null) {
+                            Objects.requireNonNull(scoreboard.getTeam(player.getName())).unregister();
+                        }
+                        player.kickPlayer(ChatColor.RED + "You have been released, rejoin the server for the full effect");
+                        player.setDisplayName(player.getName());
                         //Check if player is online
-                        if(p == null){
+                        if (p == null) {
                             MessageUtil.sendMessage(MessageValue.DRONE_NOT_ONLINE.getMessage(), player);
-                        }else{
+                        } else {
                             MessageUtil.sendMessage(MessageValue.EMERGENCY_RELEASE_DRONE.getMessage(), player);
                         }
-                    }else{
+                    } else {
                         MessageUtil.sendMessage(MessageValue.DRONE_ALREADY_DEACTIVATED.getMessage(), player);
                     }
                 }
@@ -305,7 +354,7 @@ public class DroneCommand extends BaseCommand {
         }
     }
 
-    private static boolean isInOvveride(Player player){
+    private static boolean isInOvveride(Player player) {
         core.getMainConfigYml().getStringList("mod_override");
         return core.getMainConfigYml().getStringList("mod_override").contains(player.getUniqueId().toString());
     }

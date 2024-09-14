@@ -8,7 +8,6 @@ import jakarta.persistence.TypedQuery;
 import org.bukkit.entity.Player;
 
 
-
 public class DroneDataController {
 
     private final EntityManager entityManager;
@@ -29,25 +28,25 @@ public class DroneDataController {
     }
 
     public void updateDrone(Drone d) {
-        if(d.getId() == null){
+        if (d.getId() == null) {
             entityManager.persist(d);
-        }else{
+        } else {
             entityManager.merge(d);
         }
     }
 
-    public boolean isIdUsed(int id){
+    public boolean isIdUsed(int id) {
         return getDroneById(id) != null;
     }
 
-    public Drone getDroneById(int id){
+    public Drone getDroneById(int id) {
         TypedQuery<Drone> q = entityManager.createQuery("SELECT d FROM Drone d WHERE d.droneId = :droneId", Drone.class);
         q.setParameter("droneId", id);
         return q.getSingleResult();
     }
 
-    public void emergencyRelease(Drone drone){
-        if(drone.isActive()){
+    public void emergencyRelease(Drone drone) {
+        if (drone.isActive()) {
             drone.setActive(false);
             drone.setIdPrepend(false);
             drone.setTextGlitching(false);

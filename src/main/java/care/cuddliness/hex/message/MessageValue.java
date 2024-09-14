@@ -3,8 +3,6 @@ package care.cuddliness.hex.message;
 import care.cuddliness.hex.HexCore;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 public enum MessageValue {
     PREFIX("PREFIX"), COMMAND_HIVE_ALREADY_REGISTERED("COMMAND_HIVE_ALREADY_REGISTERED"),
     COMMAND_HIVE_CODE_VALIDATION("COMMAND_HIVE_CODE_VALIDATION"),
@@ -49,6 +47,7 @@ public enum MessageValue {
     public String getName() {
         return name;
     }
+
     @NotNull
     public String getMessage() {
         return HexCore.getHexCore().getMessageYaml().getString("PREFIX") +

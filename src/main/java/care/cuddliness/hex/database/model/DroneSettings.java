@@ -9,10 +9,13 @@ import lombok.Setter;
 public class DroneSettings {
 
     @Id
-    @Setter @Getter private String id;
+    @Setter
+    @Getter
+    private String id;
     @OneToOne(mappedBy = "droneSettings", cascade = CascadeType.ALL)
     private Drone drone;
     @Column(name = "battery_capacity")
-    @Getter @Setter
+    @Getter
+    @Setter
     private int batteryCapacity = 100;
 }

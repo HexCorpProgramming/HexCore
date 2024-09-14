@@ -10,8 +10,10 @@ import java.util.UUID;
 public class Consent {
 
     @Id
-    @Getter private UUID id;
-    @Getter String consented;
+    @Getter
+    private UUID id;
+    @Getter
+    String consented;
     @JoinColumn(name = "droneId", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.ALL)
     private Drone droneId;
@@ -24,7 +26,8 @@ public class Consent {
         this.droneId = drone;
     }
 
-    public Consent() {}
+    public Consent() {
+    }
 
     public Consent(UUID id, String consented) {
         this.id = id;
