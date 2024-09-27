@@ -150,10 +150,14 @@
   description: "Error :: Unable to obey/respond :: Forbidden by Hive."
 450:
   description: "Error"
-
-
-
-
+304:
+  description: "Mantra :: It obeys the Hive Mxtress."
+301:
+  description: "Mantra :: Obey HexCorp."
+302:
+  description: "Mantra :: It is just a HexDrone."
+303:
+  description: "Mantra :: It obeys the Hive."
 
 
 

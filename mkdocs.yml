@@ -1,0 +1,18 @@
+site_name: HexCore
+repo_url: https://github.com/HexCorpProgramming/HexCore
+theme:
+  palette:
+    scheme: slate
+    primary: deep purple
+    accent: purple
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+  name: material
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
