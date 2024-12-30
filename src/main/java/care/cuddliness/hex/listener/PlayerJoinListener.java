@@ -9,7 +9,6 @@ import care.cuddliness.hex.utils.NameUtil;
 import com.mojang.authlib.GameProfile;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_21_R1.entity.CraftPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;

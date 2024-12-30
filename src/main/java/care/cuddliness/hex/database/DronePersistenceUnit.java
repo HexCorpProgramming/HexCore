@@ -7,8 +7,10 @@ import jakarta.persistence.ValidationMode;
 import jakarta.persistence.spi.ClassTransformer;
 import jakarta.persistence.spi.PersistenceUnitInfo;
 import jakarta.persistence.spi.PersistenceUnitTransactionType;
+import org.apache.commons.codec.binary.Hex;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
@@ -38,7 +40,7 @@ public class DronePersistenceUnit implements PersistenceUnitInfo {
         String password = HexCore.getHexCore().getMainConfigYml().getString("database.password");
 
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl("jdbc:mysql://" + address + "/" + database + "?useSSL=false&serverTimezone=UTC");
+        dataSource.setJdbcUrl("jdbc:sqlite:" + HexCore.getHexCore().getDataFolder() + File.separator + "database.db");
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         return dataSource;
@@ -89,6 +91,8 @@ public class DronePersistenceUnit implements PersistenceUnitInfo {
     public Properties getProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("hibernate.dialect", "org.hibernate.community.dialect.SQLiteDialect");
+
         return properties;
     }
 

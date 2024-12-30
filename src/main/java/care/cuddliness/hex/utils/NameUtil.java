@@ -1,7 +1,7 @@
 package care.cuddliness.hex.utils;
 
 import com.mojang.authlib.GameProfile;
-import org.bukkit.craftbukkit.v1_21_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_21_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
