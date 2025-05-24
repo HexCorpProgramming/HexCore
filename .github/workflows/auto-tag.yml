@@ -41,4 +41,4 @@ jobs:
           PAT: ${{ github.token }}
         run: |
           git tag ${{ steps.tagger.outputs.tag }}
-          git push origin ${{ steps.tagger.outputs.tag }}
+          git push https://x-access-token:${PAT}@github.com/${{ github.repository }} ${{ steps.tagger.outputs.tag }}
