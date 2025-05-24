@@ -15,7 +15,7 @@ public class PlayerLeaveBedListener implements Listener {
         Drone drone = HexCore.getHexCore().getDroneDataController().getDrone(event.getPlayer().getUniqueId().toString());
         if (drone != null && drone.isBatteryStatus() && event.getPlayer().getWorld().getTime() >= 0) {
             MessageUtil.sendMessage(MessageValue.BATTERY_CHARGED.getMessage(), event.getPlayer());
-            drone.getDroneSettings().setBatteryCapacity(100);
+            drone.setBatteryCapacity(100);
             HexCore.getHexCore().getDroneDataController().updateDrone(drone);
         }
     }

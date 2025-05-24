@@ -100,7 +100,7 @@ public class PlayerChatListener implements Listener {
         format.append(ChatFormat.PREFIX.getMessage()).append(" ").append(ChatFormat.ID.getMessage()).append(" ");
         DroneDataController controller = HexCore.getHexCore().getDroneDataController();
         Drone drone = controller.getDrone(player.getUniqueId().toString());
-        int level = drone.getDroneSettings().getBatteryCapacity();
+        int level = drone.getBatteryCapacity();
         if (drone.isBatteryStatus()) {
             if (level <= 100 && (!(level < 83.4))) {
                 format.append(care.cuddliness.hex.message.ChatFormat.BATTERY_1.getMessage()).append(" ");

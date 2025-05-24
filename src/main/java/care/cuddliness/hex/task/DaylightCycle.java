@@ -32,11 +32,11 @@ public class DaylightCycle extends BukkitRunnable {
                 //Check if drone is on battery
                 if (drone != null && drone.isBatteryStatus() && drone.isActive()) {
                     //Checks if battery will drain below zero
-                    if (Integer.signum(drone.getDroneSettings().getBatteryCapacity() - drainage) <= -1) {
-                        drone.getDroneSettings().setBatteryCapacity(0);
+                    if (Integer.signum(drone.getBatteryCapacity() - drainage) <= -1) {
+                        drone.setBatteryCapacity(0);
                         droneDataController.updateDrone(drone);
                     } else {
-                        drone.getDroneSettings().setBatteryCapacity(drone.getDroneSettings().getBatteryCapacity() - drainage);
+                        drone.setBatteryCapacity(drone.getBatteryCapacity() - drainage);
                         droneDataController.updateDrone(drone);
                     }
                     MessageUtil.sendMessage(MessageValue.BATTERY_DISCHARGE.getMessage().replace("%charge%", String.valueOf(drainage)),

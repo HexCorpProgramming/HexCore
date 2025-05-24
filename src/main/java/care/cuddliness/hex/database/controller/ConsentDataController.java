@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManagerFactory;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class ConsentDataController {
@@ -38,7 +39,7 @@ public class ConsentDataController {
 
     public Consent getConsentByUuid(String uuid, String consentedUuid) {
         Drone drone = entityManager.find(Drone.class, uuid);
-        List<Consent> consented = drone.getConsent();
+        Set<Consent> consented = drone.getConsent();
         return consented.stream().filter(consent -> consent.getConsented()
                 .equalsIgnoreCase(consentedUuid)).toList().get(0);
     }

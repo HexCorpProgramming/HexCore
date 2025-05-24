@@ -1,7 +1,6 @@
 package care.cuddliness.hex.database.controller;
 
 import care.cuddliness.hex.database.model.Drone;
-import care.cuddliness.hex.database.model.DroneSettings;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
@@ -20,9 +19,6 @@ public class DroneDataController {
     public void createNewDrone(Player player, int id) {
         entityManager.getTransaction().begin();
         Drone d = new Drone(player.getUniqueId().toString(), id);
-        DroneSettings settings = new DroneSettings();
-        settings.setId(player.getUniqueId().toString());
-        d.setDroneSettings(settings);
         entityManager.persist(d);
         entityManager.getTransaction().commit();
     }

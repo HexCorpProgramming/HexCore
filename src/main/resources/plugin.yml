@@ -1,5 +1,5 @@
 name: Hexcore
-version: 1.0
+version: ${project.version}
 main: care.cuddliness.hex.HexCore
 api-version: 1.21
 authors: [ Drone2703 ]

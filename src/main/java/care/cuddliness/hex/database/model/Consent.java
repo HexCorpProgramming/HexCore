@@ -11,9 +11,9 @@ public class Consent {
 
     @Id
     @Getter
+    @Column(columnDefinition = "CHAR(36)")
     private UUID id;
-    @Getter
-    String consented;
+    @Getter String consented;
     @JoinColumn(name = "droneId", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.ALL)
     private Drone droneId;

@@ -55,6 +55,7 @@ public class HexCore extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         //Registering database controllers
         this.entityManager = new HibernatePersistenceProvider().createContainerEntityManagerFactory(new DronePersistenceUnit(), new HashMap());
         this.droneDataController = new DroneDataController(entityManager);

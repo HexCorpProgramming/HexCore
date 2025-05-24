@@ -415,7 +415,7 @@ public class DroneCommand extends BaseCommand {
                 .replace("%glitched%", coloredBoolean(drone.isTextGlitching()))
                 .replace("%idprepend%", coloredBoolean(drone.isIdPrepend()))
                 .replace("%batterypower%", coloredBoolean(drone.isBatteryStatus()))
-                .replace("%batterycharge%", drone.getDroneSettings().getBatteryCapacity() + "%")
+                .replace("%batterycharge%", drone.getBatteryCapacity() + "%")
                 .replace("%trustedusers%", builder.toString());
     }
 

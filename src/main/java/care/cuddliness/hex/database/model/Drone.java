@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Getter
@@ -15,16 +16,12 @@ public class Drone {
 
     @Id
     private String id;
-    @Column(name = "id_drone")
+    @Column(name = "id_drone", columnDefinition = "varchar(32)")
     @Setter
     private int droneId;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "droneSettings_id", referencedColumnName = "id")
-    @Setter
-    private DroneSettings droneSettings;
     @Setter
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "droneId")
-    private List<Consent> consent = new ArrayList<>();
+    private Set<Consent> consent;
     @Column(name = "active")
     @Setter
     private boolean active = true;
@@ -43,6 +40,10 @@ public class Drone {
     @Column(name = "speech_optimalization")
     @Setter
     private boolean speechOptimalization = false;
+    @Column(name = "battery_capacity")
+    @Getter
+    @Setter
+    private int batteryCapacity = 100;
 
     public Drone() {
     }
@@ -53,7 +54,6 @@ public class Drone {
         setIdPrepend(other.isIdPrepend());
         setSpeechOptimalization(other.isSpeechOptimalization());
         setTextGlitching(other.isTextGlitching());
-        setDroneSettings(other.getDroneSettings());
         setConsent(other.getConsent());
         return other;
     }
