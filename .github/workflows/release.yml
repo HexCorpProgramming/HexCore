@@ -18,13 +18,19 @@ jobs:
         with:
           java-version: 21
           distribution: 'adopt'
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Run Spigot-BuildTools
-        if: steps.spigot.outputs.cache-hit != true
         run: |
             mkdir -p .spigot-buildtools
              cd .spigot-buildtools
              wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -O BuildTools.jar
-             java -jar BuildTools.jar --rev 1.21.5
+             java -jar BuildTools.jar --rev 1.21.5 --remapped
              cd ..
              rm -R .spigot-buildtools
         env:
