@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    branches:
-      - 'Mxtress'
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Release
-        uses: actions/create-release@v4
+        uses: softprops/action-gh-release@v2
         id: create_release
         with:
           draft: false
