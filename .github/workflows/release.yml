@@ -19,7 +19,7 @@ jobs:
           java-version: 21
           distribution: 'adopt'
       - name: Run Spigot-BuildTools
-        if: ${{steps.spigot.outputs.cache-hit != "true"}}
+        if: steps.spigot.outputs.cache-hit != true
         run: |
             mkdir -p .spigot-buildtools
              cd .spigot-buildtools
