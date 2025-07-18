@@ -1,12 +1,11 @@
-package care.cuddliness.hex.listener;
+package care.cuddliness.hexcorp.hexcore.listener;
 
-import care.cuddliness.hex.HexCore;
-import care.cuddliness.hex.database.controller.DroneDataController;
-import care.cuddliness.hex.database.model.drone.Drone;
-import care.cuddliness.hex.database.model.drone.DroneModel;
-import care.cuddliness.hex.message.ChatFormat;
-import care.cuddliness.hex.message.MessageUtil;
-import care.cuddliness.hex.utils.NameUtil;
+import care.cuddliness.hexcorp.hexcore.HexCore;
+import care.cuddliness.hexcorp.hexcore.database.controller.DroneController;
+import care.cuddliness.hexcorp.hexcore.database.model.Drone;
+import care.cuddliness.hexcorp.hexcore.message.ChatFormat;
+import care.cuddliness.hexcorp.hexcore.message.MessageUtil;
+import care.cuddliness.hexcorp.hexcore.utils.NameUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -16,9 +15,9 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 public class PlayerJoinListener implements Listener {
-    private final DroneDataController controller;
+    private final DroneController controller;
 
-    public PlayerJoinListener(DroneDataController controller) {
+    public PlayerJoinListener(DroneController controller) {
         this.controller = controller;
     }
 

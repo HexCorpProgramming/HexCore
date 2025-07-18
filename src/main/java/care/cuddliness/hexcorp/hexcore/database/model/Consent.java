@@ -1,34 +1,27 @@
-package care.cuddliness.hexcorp.hexcore.database.model.consent;
+package care.cuddliness.hexcorp.hexcore.database.model;
 
-import care.cuddliness.hexcorp.hexcore.database.model.drone.Drone;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 
 @Setter
-@Entity
 public class Consent {
-    @Id
     @Getter
-    @Column(columnDefinition = "CHAR(36)")
     private String id;
-    @JoinColumn(name = "droneId")
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Drone droneId;
+    private int droneId;
 
-    public Drone getDrone() {
+    public int getDrone() {
         return droneId;
     }
 
-    public void setDrone(Drone drone) {
+    public void setDrone(int drone) {
         this.droneId = drone;
     }
 
     public Consent() {
     }
 
-    public Consent(String id, Drone droneId) {
+    public Consent(String id, int droneId) {
         this.id = id;
         this.droneId = droneId;
     }

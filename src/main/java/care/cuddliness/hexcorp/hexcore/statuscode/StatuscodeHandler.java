@@ -1,6 +1,6 @@
-package care.cuddliness.hex.statuscode;
+package care.cuddliness.hexcorp.hexcore.statuscode;
 
-import care.cuddliness.hex.HexCore;
+import care.cuddliness.hexcorp.hexcore.HexCore;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
 import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;

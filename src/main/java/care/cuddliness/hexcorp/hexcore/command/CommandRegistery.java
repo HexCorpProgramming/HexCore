@@ -1,4 +1,4 @@
-package care.cuddliness.hex.command;
+package care.cuddliness.hexcorp.hexcore.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

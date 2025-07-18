@@ -38,7 +38,7 @@ jobs:
 
       - name: Create and push tag
         env:
-          PAT: ${{ github.token }}
+          PAT: ${{ secrets.GH_PAT }}
         run: |
           git tag ${{ steps.tagger.outputs.tag }}
           git push https://x-access-token:${PAT}@github.com/${{ github.repository }} ${{ steps.tagger.outputs.tag }}

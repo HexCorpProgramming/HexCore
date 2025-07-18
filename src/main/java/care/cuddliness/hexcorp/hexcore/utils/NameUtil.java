@@ -1,4 +1,4 @@
-package care.cuddliness.hex.utils;
+package care.cuddliness.hexcorp.hexcore.utils;
 
 import com.mojang.authlib.GameProfile;
 import org.bukkit.craftbukkit.v1_21_R4.entity.CraftPlayer;

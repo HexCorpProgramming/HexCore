@@ -1,9 +1,9 @@
-package care.cuddliness.hex.listener;
+package care.cuddliness.hexcorp.hexcore.listener;
 
-import care.cuddliness.hex.HexCore;
-import care.cuddliness.hex.database.controller.DroneDataController;
-import care.cuddliness.hex.message.ChatFormat;
-import care.cuddliness.hex.message.MessageUtil;
+import care.cuddliness.hexcorp.hexcore.HexCore;
+import care.cuddliness.hexcorp.hexcore.database.controller.DroneController;
+import care.cuddliness.hexcorp.hexcore.message.ChatFormat;
+import care.cuddliness.hexcorp.hexcore.message.MessageUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,9 +14,9 @@ import java.util.Objects;
 
 public class PlayerLeaveListener implements Listener {
 
-    private final DroneDataController controller;
+    private final DroneController controller;
 
-    public PlayerLeaveListener(DroneDataController controller) {
+    public PlayerLeaveListener(DroneController controller) {
         this.controller = controller;
     }
 

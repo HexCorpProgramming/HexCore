@@ -1,4 +1,4 @@
-package care.cuddliness.hex.statuscode;
+package care.cuddliness.hexcorp.hexcore.statuscode;
 
 import lombok.Getter;
 

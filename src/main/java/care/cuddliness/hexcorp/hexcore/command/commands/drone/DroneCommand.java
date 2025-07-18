@@ -1,11 +1,10 @@
-package care.cuddliness.hex.command.commands.drone;
+package care.cuddliness.hexcorp.hexcore.command.commands.drone;
 
-import care.cuddliness.hex.HexCore;
-import care.cuddliness.hex.database.model.drone.Drone;
-import care.cuddliness.hex.database.model.drone.Drone;
-import care.cuddliness.hex.message.MessageUtil;
-import care.cuddliness.hex.message.MessageValue;
-import care.cuddliness.hex.utils.NameUtil;
+import care.cuddliness.hexcorp.hexcore.HexCore;
+import care.cuddliness.hexcorp.hexcore.database.model.Drone;
+import care.cuddliness.hexcorp.hexcore.message.MessageUtil;
+import care.cuddliness.hexcorp.hexcore.message.MessageValue;
+import care.cuddliness.hexcorp.hexcore.utils.NameUtil;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import org.bukkit.Bukkit;
@@ -54,7 +53,7 @@ public class DroneCommand extends BaseCommand {
                     return;
                 }
                 //Check if sender is drone itself
-                if (drone.getPlayerId().equalsIgnoreCase(player.getUniqueId().toString())) {
+                if (drone.getId().equalsIgnoreCase(player.getUniqueId().toString())) {
                     sendStatus(drone, player);
                     return;
                 }
@@ -87,12 +86,12 @@ public class DroneCommand extends BaseCommand {
                     return;
                 }
                 if (!drone.isBatteryStatus()) {
-                    drone.setBatteryStatus(1);
+                    drone.setBatteryStatus(true);
                     //Enable BatteryStatus
                     MessageUtil.sendMessage(MessageValue.BATTERY_ENABLED.getMessage(), player);
                     core.getDroneDataController().updateDrone(drone);
                 } else {
-                    drone.setBatteryStatus(0);
+                    drone.setBatteryStatus(false);
                     MessageUtil.sendMessage(MessageValue.BATTERY_DISABLED.getMessage(), player);
                     core.getDroneDataController().updateDrone(drone);
                     //Disables BatteryStatus
@@ -118,7 +117,7 @@ public class DroneCommand extends BaseCommand {
                     return;
                 }
                 //Check if sender is drone itself
-                if (drone.getPlayerId().equalsIgnoreCase(player.getUniqueId().toString())) {
+                if (drone.getId().equalsIgnoreCase(player.getUniqueId().toString())) {
                     toggleBattery(drone, player);
                     return;
                 }
@@ -146,12 +145,12 @@ public class DroneCommand extends BaseCommand {
             if (core.getDroneDataController().getDrone(player.getUniqueId().toString()) != null) {
                 Drone drone = core.getDroneDataController().getDrone(player.getUniqueId().toString());
                 if (!drone.isIdPrepend()) {
-                    drone.setIdPrepend(1);
+                    drone.setIdPrepend(true);
                     //Enable BatteryStatus
                     MessageUtil.sendMessage(MessageValue.IDPREPEND_ENABLE.getMessage(), player);
                     core.getDroneDataController().updateDrone(drone);
                 } else {
-                    drone.setIdPrepend(0);
+                    drone.setIdPrepend(false);
                     MessageUtil.sendMessage(MessageValue.IDPREPEND_DISABLE.getMessage(), player);
                     core.getDroneDataController().updateDrone(drone);
                     //Disables BatteryStatus
@@ -177,7 +176,7 @@ public class DroneCommand extends BaseCommand {
                     return;
                 }
                 //Check if sender is drone itself
-                if (drone.getPlayerId().equalsIgnoreCase(player.getUniqueId().toString())) {
+                if (drone.getId().equalsIgnoreCase(player.getUniqueId().toString())) {
                     toggleIdPrepend(drone, player);
                     return;
                 }
@@ -205,12 +204,12 @@ public class DroneCommand extends BaseCommand {
             if (core.getDroneDataController().getDrone(player.getUniqueId().toString()) != null) {
                 Drone drone = core.getDroneDataController().getDrone(player.getUniqueId().toString());
                 if (!drone.isTextGlitching()) {
-                    drone.setTextGlitching(1);
+                    drone.setTextGlitching(true);
                     //Enable BatteryStatus
                     MessageUtil.sendMessage(MessageValue.CORRUPTION_ENABLE.getMessage(), player);
                     core.getDroneDataController().updateDrone(drone);
                 } else {
-                    drone.setTextGlitching(0);
+                    drone.setTextGlitching(false);
                     MessageUtil.sendMessage(MessageValue.CORRUPTION_DISABLE.getMessage(), player);
                     core.getDroneDataController().updateDrone(drone);
                     //Disables BatteryStatus
@@ -236,7 +235,7 @@ public class DroneCommand extends BaseCommand {
                     toggleGlitching(drone, player);
                     return;
                 }
-                if (drone.getPlayerId().equalsIgnoreCase(player.getUniqueId().toString())) {
+                if (drone.getId().equalsIgnoreCase(player.getUniqueId().toString())) {
                     toggleGlitching(drone, player);
                     return;
                 }
@@ -310,7 +309,7 @@ public class DroneCommand extends BaseCommand {
                     return;
                 }
                 //Check if sender is drone itself
-                if (drone.getPlayerId().equalsIgnoreCase(player.getUniqueId().toString())) {
+                if (drone.getId().equalsIgnoreCase(player.getUniqueId().toString())) {
                     core.getDroneDataController().emergencyRelease(drone);
                     MessageUtil.sendMessage(MessageValue.EMERGENCY_RELEASE_DRONE.getMessage(), player);
                     NameUtil.changePlayerName(player, player.getName());
@@ -362,12 +361,12 @@ public class DroneCommand extends BaseCommand {
 
     private static void toggleGlitching(Drone drone, Player player) {
         if (!drone.isTextGlitching()) {
-            drone.setTextGlitching(1);
+            drone.setTextGlitching(true);
             //Enable BatteryStatus
             MessageUtil.sendMessage(MessageValue.CORRUPTION_ENABLE.getMessage(), player);
             core.getDroneDataController().updateDrone(drone);
         } else {
-            drone.setTextGlitching(0);
+            drone.setTextGlitching(false);
             MessageUtil.sendMessage(MessageValue.CORRUPTION_DISABLE.getMessage(), player);
             core.getDroneDataController().updateDrone(drone);
             //Disables BatteryStatus
@@ -376,12 +375,12 @@ public class DroneCommand extends BaseCommand {
 
     private static void toggleIdPrepend(Drone drone, Player player) {
         if (!drone.isIdPrepend()) {
-            drone.setIdPrepend(1);
+            drone.setIdPrepend(true);
             //Enable BatteryStatus
             MessageUtil.sendMessage(MessageValue.IDPREPEND_ENABLE.getMessage(), player);
             core.getDroneDataController().updateDrone(drone);
         } else {
-            drone.setIdPrepend(0);
+            drone.setIdPrepend(false);
             MessageUtil.sendMessage(MessageValue.IDPREPEND_DISABLE.getMessage(), player);
             core.getDroneDataController().updateDrone(drone);
             //Disables BatteryStatus
@@ -390,12 +389,12 @@ public class DroneCommand extends BaseCommand {
 
     private static void toggleBattery(Drone drone, Player player) {
         if (!drone.isBatteryStatus()) {
-            drone.setBatteryStatus(1);
+            drone.setBatteryStatus(true);
             //Enable BatteryStatus
             MessageUtil.sendMessage(MessageValue.BATTERY_ENABLED.getMessage(), player);
             core.getDroneDataController().updateDrone(drone);
         } else {
-            drone.setBatteryStatus(0);
+            drone.setBatteryStatus(false);
             MessageUtil.sendMessage(MessageValue.BATTERY_DISABLED.getMessage(), player);
             core.getDroneDataController().updateDrone(drone);
             //Disables BatteryStatus
@@ -409,8 +408,8 @@ public class DroneCommand extends BaseCommand {
 
     private static String placeholders(Drone drone, String input) {
         StringBuilder builder = new StringBuilder();
-        drone.getConsents().forEach(consent -> {
-            builder.append(Bukkit.getOfflinePlayer(consent.getPlayerConsented()).getPlayerProfile().getName()).append(" - ");
+        drone.getConsent().forEach(consent -> {
+            builder.append(Bukkit.getOfflinePlayer(consent.getId()).getPlayerProfile().getName()).append(" - ");
         });
         return input.replace("%droneid%", String.valueOf(drone.getDroneId()))
                 .replace("%glitched%", coloredBoolean(drone.isTextGlitching()))

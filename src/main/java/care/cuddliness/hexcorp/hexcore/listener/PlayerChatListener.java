@@ -1,14 +1,13 @@
-package care.cuddliness.hex.listener;
+package care.cuddliness.hexcorp.hexcore.listener;
 
-import care.cuddliness.hex.HexCore;
-import care.cuddliness.hex.database.controller.DroneDataController;
-import care.cuddliness.hex.database.model.drone.Drone;
-import care.cuddliness.hex.database.model.drone.DroneModel;
-import care.cuddliness.hex.message.ChatFormat;
-import care.cuddliness.hex.message.MessageUtil;
-import care.cuddliness.hex.message.MessageValue;
-import care.cuddliness.hex.statuscode.StatusCode;
-import care.cuddliness.hex.utils.ZalgoText;
+import care.cuddliness.hexcorp.hexcore.HexCore;
+import care.cuddliness.hexcorp.hexcore.database.controller.DroneController;
+import care.cuddliness.hexcorp.hexcore.database.model.Drone;
+import care.cuddliness.hexcorp.hexcore.message.ChatFormat;
+import care.cuddliness.hexcorp.hexcore.message.MessageUtil;
+import care.cuddliness.hexcorp.hexcore.message.MessageValue;
+import care.cuddliness.hexcorp.hexcore.statuscode.StatusCode;
+import care.cuddliness.hexcorp.hexcore.utils.ZalgoText;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -99,24 +98,24 @@ public class PlayerChatListener implements Listener {
         StringBuilder format = new StringBuilder();
         //Add default for every message
         format.append(ChatFormat.PREFIX.getMessage()).append(" ").append(ChatFormat.ID.getMessage()).append(" ");
-        DroneDataController controller = HexCore.getHexCore().getDroneDataController();
+        DroneController controller = HexCore.getHexCore().getDroneDataController();
         Drone drone = controller.getDrone(player.getUniqueId().toString());
         int level = drone.getBatteryCapacity();
         if (drone.isBatteryStatus()) {
             if (level <= 100 && (!(level < 83.4))) {
-                format.append(care.cuddliness.hex.message.ChatFormat.BATTERY_1.getMessage()).append(" ");
+                format.append(ChatFormat.BATTERY_1.getMessage()).append(" ");
             } else if (level <= 83.4 && (!(level < 66.8))) {
-                format.append(care.cuddliness.hex.message.ChatFormat.BATTERY_2.getMessage()).append(" ");
+                format.append(ChatFormat.BATTERY_2.getMessage()).append(" ");
             } else if (level <= 66.8 && (!(level < 50.2))) {
-                format.append(care.cuddliness.hex.message.ChatFormat.BATTERY_3.getMessage()).append(" ");
+                format.append(ChatFormat.BATTERY_3.getMessage()).append(" ");
             } else if (level <= 50.2 && (!(level < 33.6))) {
-                format.append(care.cuddliness.hex.message.ChatFormat.BATTERY_4.getMessage()).append(" ");
+                format.append(ChatFormat.BATTERY_4.getMessage()).append(" ");
             } else if (level <= 33.6 && (!(level < 17))) {
-                format.append(care.cuddliness.hex.message.ChatFormat.BATTERY_5.getMessage()).append(" ");
+                format.append(ChatFormat.BATTERY_5.getMessage()).append(" ");
             } else if (level <= 17 && (!(level < 1))) {
-                format.append(care.cuddliness.hex.message.ChatFormat.BATTERY_6.getMessage()).append(" ");
+                format.append(ChatFormat.BATTERY_6.getMessage()).append(" ");
             } else if (level == 0) {
-                format.append(care.cuddliness.hex.message.ChatFormat.BATTERY_7.getMessage()).append(" ");
+                format.append(ChatFormat.BATTERY_7.getMessage()).append(" ");
             }
         }
         if (hasCode) {

@@ -1,44 +1,32 @@
-package care.cuddliness.hexcorp.hexcore.database.model.drone;
-
-import care.cuddliness.hexcorp.hexcore.database.model.consent.Consent;
+package care.cuddliness.hexcorp.hexcore.database.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 @Getter @Setter
-@Entity
 public class Drone {
 
-    @Id
-    private String id;
-    @Setter
-    private int droneId;
-    @Setter
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "droneId")
-    private Set<Consent> consent;
-    @Column(name = "active")
-    @Setter
-    private boolean active = true;
-    @Column(name = "battery_status")
-    @Setter
-    private boolean batteryStatus = false;
-    @Column(name = "id_prepend")
-    @Setter
-    private boolean idPrepend = false;
-    @Column(name = "speech_optimization")
-    @Setter
-    private boolean speechOptimization = false;
-    @Column(name = "text_glitch")
-    @Setter
-    private boolean textGlitching = false;
-    @Column(name = "speech_optimalization")
-    @Setter
-    private boolean speechOptimalization = false;
-    @Column(name = "battery_capacity")
-    @Getter
-    @Setter
-    private int batteryCapacity = 100;
+    @Getter private String id;
+    @Getter private int droneId;
+    @Getter private List<Consent> consent;
+    @Getter private boolean active = true;
+    @Getter private boolean batteryStatus = false;
+    @Getter private boolean idPrepend = false;
+    @Getter private boolean speechOptimization = false;
+    @Getter private boolean textGlitching = false;
+    @Getter private int batteryCapacity = 100;
+
+    public Drone(String id, int droneId, List<Consent> consent, boolean active, boolean batteryStatus, boolean idPrepend, boolean speechOptimization, boolean textGlitching, int batteryCapacity) {
+        this.id = id;
+        this.droneId = droneId;
+        this.consent = consent;
+        this.active = active;
+        this.batteryStatus = batteryStatus;
+        this.idPrepend = idPrepend;
+        this.speechOptimization = speechOptimization;
+        this.textGlitching = textGlitching;
+        this.batteryCapacity = batteryCapacity;
+    }
 
 
 }

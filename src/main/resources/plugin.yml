@@ -1,6 +1,6 @@
 name: Hexcore
 version: ${project.version}
-main: care.cuddliness.hex.HexCore
+main: care.cuddliness.hexcorp.hexcore.HexCore
 api-version: 1.21
 authors: [ Drone2703 ]
 description: Adding HexCorp Mxtress AI features to minecraft!

@@ -1,11 +1,10 @@
-package care.cuddliness.hex.command.commands.hive;
+package care.cuddliness.hexcorp.hexcore.command.commands.hive;
 
-import care.cuddliness.hex.HexCore;
-import care.cuddliness.hex.database.model.drone.Drone;
-import care.cuddliness.hex.database.model.drone.DroneModel;
-import care.cuddliness.hex.message.MessageUtil;
-import care.cuddliness.hex.message.MessageValue;
-import care.cuddliness.hex.utils.NameUtil;
+import care.cuddliness.hexcorp.hexcore.HexCore;
+import care.cuddliness.hexcorp.hexcore.database.model.Drone;
+import care.cuddliness.hexcorp.hexcore.message.MessageUtil;
+import care.cuddliness.hexcorp.hexcore.message.MessageValue;
+import care.cuddliness.hexcorp.hexcore.utils.NameUtil;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import net.md_5.bungee.api.ChatColor;
@@ -63,7 +62,7 @@ public class HiveCommand extends BaseCommand {
             Drone drone = core.getDroneDataController().getDrone(player.getUniqueId().toString());
             if (isInteger(args[0]) && drone != null) {
                 if (!drone.isActive()) {
-                    drone.setActive(1);
+                    drone.setActive(true);
                     core.getDroneDataController().updateDrone(drone);
                     MessageUtil.sendMessage(MessageValue.COMMAND_HIVE_WELCOME_BACK.getMessage().replace("%droneId%",
                             drone.getDroneId() + ""), player);

@@ -82,7 +82,7 @@
   </dependencies>
   <properties>
     <maven.compiler.target>21</maven.compiler.target>
-    <main.class>care.cuddliness.hex.HexCore</main.class>
+    <main.class>care.cuddliness.hexcorp.hexcore.HexCore</main.class>
     <java.version>21</java.version>
     <maven.compiler.source>21</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,6 +1,6 @@
-package care.cuddliness.hex.utils;
+package care.cuddliness.hexcorp.hexcore.utils;
 
-import care.cuddliness.hex.HexCore;
+import care.cuddliness.hexcorp.hexcore.HexCore;
 
 import java.util.List;
 

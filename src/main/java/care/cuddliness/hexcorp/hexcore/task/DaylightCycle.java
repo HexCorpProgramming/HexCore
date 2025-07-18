@@ -1,11 +1,10 @@
-package care.cuddliness.hex.task;
+package care.cuddliness.hexcorp.hexcore.task;
 
-import care.cuddliness.hex.HexCore;
-import care.cuddliness.hex.database.controller.DroneDataController;
-import care.cuddliness.hex.database.model.drone.Drone;
-import care.cuddliness.hex.database.model.drone.DroneModel;
-import care.cuddliness.hex.message.MessageUtil;
-import care.cuddliness.hex.message.MessageValue;
+import care.cuddliness.hexcorp.hexcore.HexCore;
+import care.cuddliness.hexcorp.hexcore.database.controller.DroneController;
+import care.cuddliness.hexcorp.hexcore.database.model.Drone;
+import care.cuddliness.hexcorp.hexcore.message.MessageUtil;
+import care.cuddliness.hexcorp.hexcore.message.MessageValue;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -15,7 +14,7 @@ public class DaylightCycle extends BukkitRunnable {
 
     private final World world;
     private final int drainage;
-    private final DroneDataController droneDataController;
+    private final DroneController droneDataController;
 
     public DaylightCycle(World world) {
         this.world = world;

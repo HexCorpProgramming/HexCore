@@ -1,4 +1,4 @@
-package care.cuddliness.hex.command;
+package care.cuddliness.hexcorp.hexcore.command;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

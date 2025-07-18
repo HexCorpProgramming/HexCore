@@ -1,4 +1,4 @@
-package care.cuddliness.hex.utils;
+package care.cuddliness.hexcorp.hexcore.utils;
 
 public class ZalgoText {
 

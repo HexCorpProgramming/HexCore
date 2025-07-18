@@ -1,6 +1,6 @@
-package care.cuddliness.hex.message;
+package care.cuddliness.hexcorp.hexcore.message;
 
-import care.cuddliness.hex.HexCore;
+import care.cuddliness.hexcorp.hexcore.HexCore;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.World;

@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - 'Mxtress'  # or your main dev branch
 
 jobs:
   build:
