@@ -1,7 +1,8 @@
 package care.cuddliness.hex.listener;
 
 import care.cuddliness.hex.HexCore;
-import care.cuddliness.hex.database.model.Drone;
+import care.cuddliness.hex.database.model.drone.Drone;
+import care.cuddliness.hex.database.model.drone.DroneModel;
 import care.cuddliness.hex.message.MessageUtil;
 import care.cuddliness.hex.message.MessageValue;
 import org.bukkit.event.EventHandler;

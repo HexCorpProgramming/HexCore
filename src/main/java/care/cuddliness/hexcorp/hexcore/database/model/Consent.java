@@ -1,20 +1,19 @@
-package care.cuddliness.hex.database.model;
+package care.cuddliness.hexcorp.hexcore.database.model.consent;
 
-import jakarta.persistence.*;
+import care.cuddliness.hexcorp.hexcore.database.model.drone.Drone;
 import lombok.Getter;
+import lombok.Setter;
 
-import java.util.UUID;
+import javax.persistence.*;
 
+@Setter
 @Entity
-@Table(name = "consent")
 public class Consent {
-
     @Id
     @Getter
     @Column(columnDefinition = "CHAR(36)")
-    private UUID id;
-    @Getter String consented;
-    @JoinColumn(name = "droneId", referencedColumnName = "id")
+    private String id;
+    @JoinColumn(name = "droneId")
     @ManyToOne(cascade = CascadeType.ALL)
     private Drone droneId;
 
@@ -29,8 +28,8 @@ public class Consent {
     public Consent() {
     }
 
-    public Consent(UUID id, String consented) {
+    public Consent(String id, Drone droneId) {
         this.id = id;
-        this.consented = consented;
+        this.droneId = droneId;
     }
 }

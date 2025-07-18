@@ -1,7 +1,8 @@
 package care.cuddliness.hex.command.commands.hive;
 
 import care.cuddliness.hex.HexCore;
-import care.cuddliness.hex.database.model.Drone;
+import care.cuddliness.hex.database.model.drone.Drone;
+import care.cuddliness.hex.database.model.drone.DroneModel;
 import care.cuddliness.hex.message.MessageUtil;
 import care.cuddliness.hex.message.MessageValue;
 import care.cuddliness.hex.utils.NameUtil;
@@ -62,10 +63,10 @@ public class HiveCommand extends BaseCommand {
             Drone drone = core.getDroneDataController().getDrone(player.getUniqueId().toString());
             if (isInteger(args[0]) && drone != null) {
                 if (!drone.isActive()) {
-                    drone.setActive(true);
+                    drone.setActive(1);
                     core.getDroneDataController().updateDrone(drone);
                     MessageUtil.sendMessage(MessageValue.COMMAND_HIVE_WELCOME_BACK.getMessage().replace("%droneId%",
-                            drone.getId()), player);
+                            drone.getDroneId() + ""), player);
                     NameUtil.changePlayerName(player, "HexDrone" + args[0]);
                     Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
                     Team team = scoreboard.registerNewTeam(player.getName());
@@ -89,7 +90,7 @@ public class HiveCommand extends BaseCommand {
             Team team = scoreboard.registerNewTeam(player.getName());
             team.setPrefix(ChatColor.translateAlternateColorCodes('&', "&8&l⬡ &5" + args[0] + " &7| &r"));
             team.addEntry(player.getName());
-            HexCore.getHexCore().getDroneDataController().createNewDrone(player, Integer.parseInt(args[0]));
+            HexCore.getHexCore().getDroneDataController().insertDroneWithId(player, Integer.parseInt(args[0]));
             player.kickPlayer(org.bukkit.ChatColor.RED + "You have been registered, rejoin the server for the full effect");
         }
     }
