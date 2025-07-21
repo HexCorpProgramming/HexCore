@@ -20,7 +20,32 @@ jobs:
         with:
           java-version: 21
           distribution: 'adopt'
-
+      - name: Restore BuildTools Git repos
+        uses: actions/cache@v4
+        with:
+          path: |
+            .spigot-buildtools/BuildData
+            .spigot-buildtools/Spigot
+            .spigot-buildtools/Bukkit
+            .spigot-buildtools/CraftBukkit
+          key: ${{ runner.os }}-buildtools-${{ hashFiles('.spigot-buildtools/BuildTools.jar') }}
+          restore-keys: |
+            ${{ runner.os }}-buildtools-
+      - name: Run Spigot-BuildTools
+        run: |
+          mkdir -p .spigot-buildtools
+          cd .spigot-buildtools
+          wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -O BuildTools.jar
+          java -jar BuildTools.jar --rev 1.21.5 --remapped
+      - name: Cache BuildTools Git repos
+        uses: actions/cache@v4
+        with:
+          path: |
+            .spigot-buildtools/BuildData
+            .spigot-buildtools/Spigot
+            .spigot-buildtools/Bukkit
+            .spigot-buildtools/CraftBukkit
+          key: ${{ runner.os }}-buildtools-${{ hashFiles('.spigot-buildtools/BuildTools.jar') }}
       - name: Cache local Maven repository
         uses: actions/cache@v4
         with:
@@ -28,14 +53,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-
-      - name: Run Spigot-BuildTools
-        run: |
-          mkdir -p .spigot-buildtools
-          cd .spigot-buildtools
-          wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -O BuildTools.jar
-          java -jar BuildTools.jar --rev 1.21.5 --remapped
-
       - name: Get latest tag
         id: get_tag
         run: |
@@ -63,9 +80,14 @@ jobs:
 
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots clean package
-
+      - name: Find main plugin JAR
+        id: find_jar
+        run: |
+          file=$(find target -maxdepth 1 -name "*-SNAPSHOT.jar" ! -name "*remapped*" ! -name "*original*" | head -n 1)
+          echo "Found main JAR: $file"
+          echo "file=$file" >> $GITHUB_OUTPUT
       - name: Upload release to GitHub
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.bump_version.outputs.new_tag }}
-          files: target/*.jar
+          files: ${{ steps.find_jar.outputs.file }}
