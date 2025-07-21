@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'Mxtress'  # or your main dev branch
-
 jobs:
   tag:
     name: Auto-increment and push tags
@@ -14,7 +13,6 @@ jobs:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 0  # needed to fetch all tags
-
       - name: Set up Git
         run: |
           git config user.name "github-actions[bot]"
@@ -23,7 +21,8 @@ jobs:
       - name: Get latest tag and bump version
         id: tagger
         run: |
-          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          latest_tag=$(git tag --list 'v[0-9]*' | sort -V | tail -n 1)
+          latest_tag=${latest_tag:-v0.0.0}
           echo "Latest tag: $latest_tag"
 
           version=$(echo "$latest_tag" | sed 's/^v//' )
@@ -43,6 +42,3 @@ jobs:
         run: |
           git tag ${{ steps.tagger.outputs.tag }}
           git push https://x-access-token:${TOKEN}@github.com/${{ github.repository }} ${{ steps.tagger.outputs.tag }}
-          
-          
-          
