@@ -56,3 +56,4 @@ jobs:
           asset_path: "target/HexCore-${{ steps.version.outputs.version }}.jar"
           asset_name: HexCore-${{ steps.version.outputs.version }}.jar
           asset_content_type: application/java-archive
+          tag_name: ${{ github.ref_name }}
